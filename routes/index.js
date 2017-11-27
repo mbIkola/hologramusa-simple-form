@@ -15,7 +15,7 @@ var theFormSpec =  [
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'HologramUSA Sales Automation Something', form: theFormSpec });
+  res.render('index', { title: 'HologramUSA Sales Call Center', form: theFormSpec });
 });
 
 module.exports = router;

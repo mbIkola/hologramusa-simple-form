@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     console.log("Working");
     var form = $('#callcentre-form');
-    var inputs = form.find('input,textarea,select').toArray();
+    var inputs = form.find('input,textarea,select').not(':submit').toArray();
     var submit = $('input[type="submit"]');
 
     form.on('submit',  function() {

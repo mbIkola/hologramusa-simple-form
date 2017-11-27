@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+    node:
+      container_name: callcentre-something
+      build: .
+      command: npm start
+      network_mode: "host"
+      env_file:
+        - .env
+
+

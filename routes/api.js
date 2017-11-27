@@ -55,14 +55,20 @@ function getData( collectionName ) {
 
 function sendMail( data ) {
 
-    var transport = mailer.createTransport({
-        host: config.SMTP_HOST,
-        auth : {
-            'user' : config.SMTP_USER,
-            'pass' : config.SMTP_PASS
-        },
-        from : config.SMTP_FROM
-    });
+    var transport = mailer.createTransport(
+	    {
+
+		host: config.SMTP_HOST,
+		auth : {
+		    'user' : config.SMTP_USER,
+		    'pass' : config.SMTP_PASS
+		},
+	    },
+	    {
+
+		from : config.SMTP_FROM
+	    }
+    );
 
 
     var ejs = require('ejs');
@@ -77,7 +83,17 @@ function sendMail( data ) {
         template.then(function (htmlmessage) {
             var message = {
                 to: data['email'],
-                html: htmlmessage
+		cc: 'shares@hologramusa.com',
+		subject: 'INVEST IN HOLOGRAM USA',
+                html: htmlmessage,
+		attachments : [
+			{
+				filename: 'holgramlogo.png',
+				cid: 'cid:hologramlogo@hologramusa.com',
+				path: __dirname + '/../assets/logo.png'
+				}
+				]
+
             };
             return new Promise(function (resolve, reject) {
                 transport.sendMail(message, function (err, info) {
