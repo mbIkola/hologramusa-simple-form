@@ -88,7 +88,7 @@ function sendMail( data ) {
                         html: htmlmessage,
                 attachments : [
                     {
-                        filename: 'holgramlogo.png',
+                        filename: 'hologramusa-logo.gif',
                         cid: 'cid:hologramlogo@hologramusa.com',
                         path: path.normalize(__dirname + '/../public/images/hologramusa-logo.gif')
                     }
