@@ -8,28 +8,282 @@
 
       <link rel='stylesheet' href='stylesheets/style.css' />
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <!-- Basic Styles -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+      <!-- GOOGLE FONT -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
 
   </head>
   <body>
-    <div class="container-fluid">
 
-            <h1><%= title %></h1>
-            <hr/>
+  <div id="wrapper"><div id="topContainer">
+    <div class="container">
+        <img class="logo pull-left" src="/images/hologramusa-logo.gif" alt="logo">
+        <div class="clearfix"></div>
 
-        <div class="row">
-            <div class="col-xs-12 col-12">
-                <% include ./forms/theForm.ejs %>
+            <div class="row">
+                    <div class="col-md-3">
+                        <!-- Guide -->
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <div class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Note to Agents
+                                        </a>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <p>Only a HologramUSA representative can answer further questions about the Investment Opportunity.</p>
+                                        <p>If the caller wants information about the Investment Opportunity, please tell them that they may speak to a HologramUSA representative.</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p class="bg-warning">
+                                            <strong>If caller demands to speak with a HologramUSA Investor relations rep:</strong></p>
+                                        <u>Only allow 3 rings</u>
+                                        <br><br>
+
+                                        <strong>Agent: </strong>
+                                        Due to the high volume, a Hologram USA investor relations officer will be in touch with you as soon as you review and submit your subscription agreement. So please check your inbox and look for the email that says “Hologram USA Subscription Agreement”.
+                                        <br><br>
+
+                                        <u>End call</u>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ./end Guide -->
+                        </div>
+                        <!-- ./end Left -->
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="hidden" id="transferScript">
+                                <div class="col-xs-12">
+                                    <p class="bg-warning" >
+                                        <strong>
+                                            <u>If caller demands to speak with an HologramUSA Investor relations</u> please attempt a LIVE CALL TRANSFER TO 1-310-295-0050
+                                        </strong>
+                                        <ul>
+                                            <li><strong>Only allow 3 rings</strong></li>
+                                            <li><strong>Agent: Due to the high volume, a Hologram USA investor relations
+                                                    officer will be in touch with you as soon as you review and submit
+                                                    your subscription agreement. So please check your inbox and look
+                                                    for the email that says “Hologram USA Subscription Agreement”.
+                                            </strong></li>
+                                            <li><strong>End call</strong></li>
+                                        </ul>
+                                    </p>
+
+                                    <p class="bg-warning" >
+                                        <strong>Note To Agent; If client has additional questions:</strong>
+                                        <ul>
+                                            <li><strong>Due to the high volume, a Hologram USA investor relations officer will be in touch with you as soon as you review and submit your subscription agreement. So please check your inbox and look for the email that says “Hologram USA Subscription Agreement”.</strong></li>
+                                            <li><strong>Only a HologramUSA Investor relations representative can answer further questions about the Investment Opportunity.</strong></li>
+                                            <li><strong>If the caller wants information about the Investment Opportunity, please tell them that they may speak to a HologramUSA Investor relations representative or go to Www.hologramusa.com/invest & enter their email Address.</strong></li>
+                                        </ul>
+                                    </p>
+
+                                    <p><strong>Customer Name:</strong> <span id="tsCustomerName"></span></p>
+                                    <p><strong>Customer Tel:</strong> <span id="tsCustomerPhone"></span></p>
+                                    <p><strong>Customer Email: </strong><span id="tsCustomerEmail"></span></p>
+                                    <hr>
+                                    <button id="formRestartBtn" class="btn btn-success">Restart Form</button>
+                                </div>
+
+                            </div>
+
+                            <div class="hidden" id="noTransferScript">
+                                <p>Thank you!</p><br>
+                                <br>
+                                <p>Your information is being forwarded to a licensed broker, who will call you back as soon as possible.</p><br>
+                                <br>
+                                <p>Thank you, good bye!</p>
+                            </div>
+
+
+                            <!-- Start Form -->
+                            <form id="ipoIntakeForm">
+                                <div class="col-xs-12">
+                                    <p class="lead">
+                                        Hi, and thank you for calling about the Hologram USA Investment Opportunity; a Hologram representative will answer all of your questions about the Investment opportunity,  I just have a couple of question to ask you.
+                                        <br><br>
+                                        This call may be recorded for quality purposes.
+                                    </p>
+                                </div>
+                                <!--- Name -->
+                                <div class="form-group col-xs-12">
+                                    <label for="name">What is your full name?</label> &nbsp;<span class="label label-info">required</span>
+                                    <input type="text" name="fullname" id="name" class="form-control input-lg" required/>
+                                </div>
+                                <!-- Phone -->
+                                <div class="form-group col-xs-12">
+                                    <label for="phone">What is your phone number?</label> &nbsp;<span class="label label-info">required</span>
+                                    <input type="text" name="phone" id="phone" class="form-control input-lg" required/>
+                                </div>
+                                <!-- State -->
+                                <div class="form-group col-xs-12">
+                                    <label for="state">What state do you live in?</label>
+                                    <select name="state" id="state" class="form-control input-lg">
+                                        <option value="default">Please Select</option>
+                                        <option value="none">None</option>
+                                        <option value="Alabama">Alabama</option>
+                                        <option value="Alaska">Alaska</option>
+                                        <option value="Arizona">Arizona</option>
+                                        <option value="Arkansas">Arkansas</option>
+                                        <option value="California">California</option>
+                                        <option value="Colorado">Colorado</option>
+                                        <option value="Connecticut">Connecticut</option>
+                                        <option value="Delaware">Delaware</option>
+                                        <option value="Florida">Florida</option>
+                                        <option value="Georgia">Georgia</option>
+                                        <option value="Hawaii">Hawaii</option>
+                                        <option value="Idaho">Idaho</option>
+                                        <option value="Illinois">Illinois</option>
+                                        <option value="Indiana">Indiana</option>
+                                        <option value="Iowa">Iowa</option>
+                                        <option value="Kansas">Kansas</option>
+                                        <option value="Kentucky">Kentucky</option>
+                                        <option value="Louisiana">Louisiana</option>
+                                        <option value="Maine">Maine</option>
+                                        <option value="Maryland">Maryland</option>
+                                        <option value="Massachusetts">Massachusetts</option>
+                                        <option value="Michigan">Michigan</option>
+                                        <option value="Minnesota">Minnesota</option>
+                                        <option value="Mississippi">Mississippi</option>
+                                        <option value="Missouri">Missouri</option>
+                                        <option value="Montana">Montana</option>
+                                        <option value="Nebraska">Nebraska</option>
+                                        <option value="Nevada">Nevada</option>
+                                        <option value="New Hampshire">New Hampshire</option>
+                                        <option value="New Jersey">New Jersey</option>
+                                        <option value="New Mexico">New Mexico</option>
+                                        <option value="New York">New York</option>
+                                        <option value="North Carolina">North Carolina</option>
+                                        <option value="North Dakota">North Dakota</option>
+                                        <option value="Ohio">Ohio</option>
+                                        <option value="Oklahoma">Oklahoma</option>
+                                        <option value="Oregon">Oregon</option>
+                                        <option value="Pennsylvania">Pennsylvania</option>
+                                        <option value="Rhode Island">Rhode Island</option>
+                                        <option value="South Carolina">South Carolina</option>
+                                        <option value="South Dakota">South Dakota</option>
+                                        <option value="Tennessee">Tennessee</option>
+                                        <option value="Texas">Texas</option>
+                                        <option value="Utah">Utah</option>
+                                        <option value="Vermont">Vermont</option>
+                                        <option value="Virginia">Virginia</option>
+                                        <option value="Washington">Washington</option>
+                                        <option value="West Virginia">West Virginia</option>
+                                        <option value="Wisconsin">Wisconsin</option>
+                                        <option value="Wyoming">Wyoming</option>
+                                    </select>
+                                </div>
+                                <!-- Company -->
+                                <div class="form-group col-xs-12">
+                                    <label for="company">Are you calling as a private investor or on behalf of a company.</label>
+                                    <input type="text" name="company" id="company" placeholder="optional" class="form-control input-lg"/>
+                                </div>
+                                <!-- Email -->
+                                <div class="form-group col-xs-12">
+                                    <label for="email">What is your e-mail address?</label> &nbsp;<span class="label label-info">required</span>
+                                    <input type="email" name="email" id="email" class="form-control input-lg"/>
+                                    <br>
+                                    <p class="bg-success">
+                                        <strong>After Obataining Email Address: </strong>
+                                        <br>
+                                    <ol>
+                                        <li>
+                              <span>Please <a class="target-invest-link" href="https://www.hologramusa.com/invest" target="_blank">Click Here</a> and enter clients email address.
+                                        </li>
+                                        <li>
+                                            And click <strong>Verify Your Email Address</strong> to submit.</span>
+                                        </li>
+                                        <li>
+                                            <span>After continue with completing the rest of this form.</span>
+                                        </li>
+                                    </ol>
+                                    </p>
+                                    <br>
+                                    <p class="bg-danger">
+                                        <strong>If client refuses email: </strong>
+                                        <br>
+                                        <span>Remind them that in order to receive the HologramUSA investor relations email, we need a valid email address.</span>
+
+                                        <br><br>
+
+                                        <span><strong>If Client still refuses: </strong></span>
+                                        <br>
+                                        <span>Let them know that we can move forward and a HologramUSA investor relations rep will contact them.</span>
+                                    </p>
+                                </div>
+                                <!-- Investment Amount -->
+                                <div class="form-group col-xs-12">
+                                    <label for="investAmt">How much are you planning to invest in the IPO?</label>
+                                    <select name="investAmt" id="investAmt" class="form-control input-lg">
+                                        <option value="default">Please Select</option>
+                                        <option value="less than 400">Less Than $400</option>
+                                        <option value="400 to 999">$400 to $999</option>
+                                        <option value="1,000 to 4,999">$1,000 to $4,999</option>
+                                        <option value="5,000 to 9,999">$5,000 to $9,999</option>
+                                        <option value="10,000 to 19,999">$10,000 to $19,999</option>
+                                        <option value="20,000 to 49,999">$20,000 to $49,999</option>
+                                        <option value="50,000 to 99,999">$50,000 to $99,999</option>
+                                        <option value="100,000+">$100,000 Or More</option>
+                                        <option value="not sure">Not Sure</option>
+                                    </select>
+                                </div>
+                                <!-- Hear About Us -->
+                                <div class="form-group col-xs-12">
+                                    <label for="hearAboutUs">How did you hear about us?</label>
+                                    <select name="hearAboutUs" id="hearAboutUs" class="form-control input-lg">
+                                        <option value="default">Please Select</option>
+                                        <option value="television">Television</option>
+                                        <option value="radio">Radio</option>
+                                        <option value="digital">Digital</option>
+                                        <option value="referral">Referral</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <!-- Show if hearAboutUs val() === 'referral' -->
+                                <div class="form-group col-xs-12" id="referralSourceWrapper">
+                                    <label for="referralSource">Please Specify Referral</label>
+                                    <input type="text" id="referralSource" name="referralSource" class="form-control input-lg"/>
+                                </div>
+                                <!-- Show if hearAboutUs val() === 'other' -->
+                                <div class="form-group col-xs-12" id="otherSourceWrapper">
+                                    <label for="otherSource">Please Specify Other</label>
+                                    <input type="text" id="otherSource" name="otherSource" class="form-control input-lg"/>
+                                </div>
+                                <!-- Notes -->
+                                <div class="form-group col-xs-12">
+                                    <label for="message">Notes</label>
+                                    <textarea name="message" id="message" placeholder="optional" class="form-control input-lg" col="10"></textarea>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <p class="lead">
+                                        Ok Great, you’ll be receiving a HologramUSA subscription agreement, after you fill out the agreement you will be directed to a page where you will also have a link to download the HologramUSA Media Kit. Most questions that you will have will be on there.
+                                        <br><br>
+                                        Thank you for calling Hologram USA.
+                                    </p>
+                                </div>
+                                <div class="col-xs-12">
+                                    <button class="btn btn-success btn-lg pull-right" id="firstFormSubmit">Submit</button>
+                                </div>
+                            </form>
+                            <!-- ./end Form -->
+                        </div>
+                    </div>
             </div>
-            <div class="col-xs-12 col-12">
-                <% include ./partials/help.ejs %>
-            </div>
-        </div>
     </div>
+  </div></div>
 
     <script type="text/javascript" src="javascripts/theform.js" ></script>
   </body>

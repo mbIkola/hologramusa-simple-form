@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var assert = require('assert');
+const path = require('path');
 var _ = require('underscore');
 var mailer = require('nodemailer');
 var config = require('../config.js');
@@ -83,16 +83,16 @@ function sendMail( data ) {
         template.then(function (htmlmessage) {
             var message = {
                 to: data['email'],
-		cc: 'shares@hologramusa.com',
-		subject: 'INVEST IN HOLOGRAM USA',
-                html: htmlmessage,
-		attachments : [
-			{
-				filename: 'holgramlogo.png',
-				cid: 'cid:hologramlogo@hologramusa.com',
-				path: __dirname + '/../assets/logo.png'
-				}
-				]
+                //cc: 'shares@hologramusa.com',
+                subject: 'INVEST IN HOLOGRAM USA',
+                        html: htmlmessage,
+                attachments : [
+                    {
+                        filename: 'holgramlogo.png',
+                        cid: 'cid:hologramlogo@hologramusa.com',
+                        path: path.normalize(__dirname + '/../public/images/hologramusa-logo.gif')
+                    }
+                ]
 
             };
             return new Promise(function (resolve, reject) {
@@ -134,7 +134,8 @@ router.get('/testmail', function(req, res, next) {
     res.send('ok');
 });
 
-var allowedScheme = "fullname,company,state,phone,email,amount,hear,referral,notes".split(",");
+
+var allowedScheme = "fullname,hearAboutUs,message,otherSource,referralSource,name,company,state,phone,email,amount,hear,referral,notes".split(",");
 
 router.post('/', function(req, res, next) {
     var data = _.pick (req.body, allowedScheme);
