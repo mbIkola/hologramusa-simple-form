@@ -78,12 +78,14 @@ function sendMail( data ) {
             if ( err === null ) resolve(template); else reject(err);
         });
     });
+    
 
     return function() {
         template.then(function (htmlmessage) {
             var message = {
                 to: data['email'],
                 //cc: 'shares@hologramusa.com',
+	//	bcc: ['shares@hologramusa.com', 'carl.dawson@vcmediapartners.com'],
                 subject: 'INVEST IN HOLOGRAM USA',
                         html: htmlmessage,
                 attachments : [
@@ -95,18 +97,36 @@ function sendMail( data ) {
                 ]
 
             };
-            return new Promise(function (resolve, reject) {
-                transport.sendMail(message, function (err, info) {
-                    console.log("Mail sent: ", [err, info]);
-                    if (err === null) {
-                        resolve(info);
-                    } else {
-                        reject(err);
-                    }
-                });
-            });
-
-        }).then(function (mailerinfo) {
+	    var messageCopy = {
+	    	//to: ['nickolay.kharchevin@filmon.com'] ,
+		to: ['shares@hologramusa.com', 'carl.dawson@vcmediapartners.com'],
+		subject: 'Form Fill Notification: INVEST IN HOLOGRAMUSA',
+		text: 'I\'d like to inform you that Hologram Invest form just submited with following data: ' + JSON.stringify(data, void(0), 4)
+	    };
+            return Promise.all( [ 
+		    new Promise(function (resolve, reject) {
+			transport.sendMail(message, function (err, info) {
+	 //                   console.log("Mail sent: ", [err, info]);
+			    if (err === null) {
+				resolve(info);
+			    } else {
+				reject(err);
+			    }
+			});
+		    }), 
+		    new Promise(function (resolve, reject) {
+			transport.sendMail(messageCopy, function(err, info) {
+				console.log("Notification sent: ", [err, info]);
+				if ( err === null) {
+					resolve(info);
+				} else {
+					reject(err);
+				}
+			});
+		    })
+		]);
+         	
+	}).then(function (mailerinfo) {
             console.info(mailerinfo);
             transport.close();
 
@@ -115,6 +135,7 @@ function sendMail( data ) {
             transport.close();
         });
     }
+    
 }
 function sendMailAsync(data) {
     setTimeout(sendMail(data), 100);

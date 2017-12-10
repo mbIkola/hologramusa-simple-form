@@ -66,7 +66,8 @@
                         <div class="row">
                             <div class="hidden" id="transferScript">
                                 <div class="col-xs-12">
-                                    <p class="bg-warning" >
+				<!-- 
+                                    <p class="bg-warning hidden" >
                                         <strong>
                                             <u>If caller demands to speak with an HologramUSA Investor relations</u> please attempt a LIVE CALL TRANSFER TO 1-310-295-0050
                                         </strong>
@@ -81,7 +82,7 @@
                                         </ul>
                                     </p>
 
-                                    <p class="bg-warning" >
+                                    <p class="bg-warning hidden" >
                                         <strong>Note To Agent; If client has additional questions:</strong>
                                         <ul>
                                             <li><strong>Due to the high volume, a Hologram USA investor relations officer will be in touch with you as soon as you review and submit your subscription agreement. So please check your inbox and look for the email that says “Hologram USA Subscription Agreement”.</strong></li>
@@ -89,6 +90,20 @@
                                             <li><strong>If the caller wants information about the Investment Opportunity, please tell them that they may speak to a HologramUSA Investor relations representative or go to Www.hologramusa.com/invest & enter their email Address.</strong></li>
                                         </ul>
                                     </p>
+				-->
+
+				    <p class="bg-warning">
+				    	<strong> Operator - Continues talking </strong>
+					<ul>
+						<li> <strong>Thank you for waiting </strong></li>
+						<li> <strong>HologramUSA just sent you an email to the address you provided. Follow the instructions to reserve your shares now as this is limited time offering. </strong></li>
+						<li> <strong>After you reserve your shares a Hologram USA investor relations executive will follow up with you </strong></li>
+						<li> <strong>Due to the high volume of calls they are unable to speak with you right now. You will find links to the SEC Public fillings for the Hologram USA IPO at
+						             <u>hologramusa.com/invest</u> There you will also find different investment options as well as CNN and FOX news reports on Hologram USA nd a comprehencive
+							     Media Deck for you to review, The Hologram USA Family welcomes you!. Once again: got to <u>hologramusa.com/invest</u> </strong></li>
+
+					</ul>
+				    </p>
 
                                     <p><strong>Customer Name:</strong> <span id="tsCustomerName"></span></p>
                                     <p><strong>Customer Tel:</strong> <span id="tsCustomerPhone"></span></p>
@@ -117,6 +132,7 @@
                                         This call may be recorded for quality purposes.
                                     </p>
                                 </div>
+
                                 <!--- Name -->
                                 <div class="form-group col-xs-12">
                                     <label for="name">What is your full name?</label> &nbsp;<span class="label label-info">required</span>
@@ -127,8 +143,31 @@
                                     <label for="phone">What is your phone number?</label> &nbsp;<span class="label label-info">required</span>
                                     <input type="text" name="phone" id="phone" class="form-control input-lg" required/>
                                 </div>
-                                <!-- State -->
+
+                                <!-- Email -->
                                 <div class="form-group col-xs-12">
+                                    <label for="email">What is your e-mail address?</label> &nbsp;<span class="label label-info">required</span>
+                                    <input type="email" name="email" id="email" class="form-control input-lg"/>
+                                    <br>
+                                    <br>
+                                    <p class="bg-danger">
+                                        <strong>If client refuses email: </strong>
+                                        <br>
+                                        <span>Remind them that in order to receive the HologramUSA investor relations email, we need a valid email address.</span>
+
+					<!--
+                                        <br><br>
+
+                                        <span><strong>If Client still refuses: </strong></span>
+                                        <br>
+                                        <span>Let them know that we can move forward and a HologramUSA investor relations rep will contact them.</span>
+					-->
+                                    </p>
+                                </div>
+
+
+                                <!-- State -->
+                                <div class="form-group col-xs-12 hidden" >
                                     <label for="state">What state do you live in?</label>
                                     <select name="state" id="state" class="form-control input-lg">
                                         <option value="default">Please Select</option>
@@ -186,45 +225,12 @@
                                     </select>
                                 </div>
                                 <!-- Company -->
-                                <div class="form-group col-xs-12">
+                                <div class="form-group col-xs-12 hidden">
                                     <label for="company">Are you calling as a private investor or on behalf of a company.</label>
                                     <input type="text" name="company" id="company" placeholder="optional" class="form-control input-lg"/>
                                 </div>
-                                <!-- Email -->
-                                <div class="form-group col-xs-12">
-                                    <label for="email">What is your e-mail address?</label> &nbsp;<span class="label label-info">required</span>
-                                    <input type="email" name="email" id="email" class="form-control input-lg"/>
-                                    <br>
-                                    <p class="bg-success">
-                                        <strong>After Obataining Email Address: </strong>
-                                        <br>
-                                    <ol>
-                                        <li>
-                              <span>Please <a class="target-invest-link" href="https://www.hologramusa.com/invest" target="_blank">Click Here</a> and enter clients email address.
-                                        </li>
-                                        <li>
-                                            And click <strong>Verify Your Email Address</strong> to submit.</span>
-                                        </li>
-                                        <li>
-                                            <span>After continue with completing the rest of this form.</span>
-                                        </li>
-                                    </ol>
-                                    </p>
-                                    <br>
-                                    <p class="bg-danger">
-                                        <strong>If client refuses email: </strong>
-                                        <br>
-                                        <span>Remind them that in order to receive the HologramUSA investor relations email, we need a valid email address.</span>
-
-                                        <br><br>
-
-                                        <span><strong>If Client still refuses: </strong></span>
-                                        <br>
-                                        <span>Let them know that we can move forward and a HologramUSA investor relations rep will contact them.</span>
-                                    </p>
-                                </div>
                                 <!-- Investment Amount -->
-                                <div class="form-group col-xs-12">
+                                <div class="form-group col-xs-12 hidden">
                                     <label for="investAmt">How much are you planning to invest in the IPO?</label>
                                     <select name="investAmt" id="investAmt" class="form-control input-lg">
                                         <option value="default">Please Select</option>
@@ -240,7 +246,7 @@
                                     </select>
                                 </div>
                                 <!-- Hear About Us -->
-                                <div class="form-group col-xs-12">
+                                <div class="form-group col-xs-12 hidden">
                                     <label for="hearAboutUs">How did you hear about us?</label>
                                     <select name="hearAboutUs" id="hearAboutUs" class="form-control input-lg">
                                         <option value="default">Please Select</option>
@@ -269,9 +275,12 @@
 
                                 <div class="col-xs-12">
                                     <p class="lead">
+				    <!--
                                         Ok Great, you’ll be receiving a HologramUSA subscription agreement, after you fill out the agreement you will be directed to a page where you will also have a link to download the HologramUSA Media Kit. Most questions that you will have will be on there.
                                         <br><br>
                                         Thank you for calling Hologram USA.
+					-->
+					Hold on, let me transfer you!
                                     </p>
                                 </div>
                                 <div class="col-xs-12">
