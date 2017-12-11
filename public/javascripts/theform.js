@@ -32,8 +32,25 @@ $(document).ready(function() {
         $("#ipoIntakeForm").removeClass('hidden');
         $('#transferScript').addClass('hidden');
         $('#noTransferScript').addClass('hidden');
+        $(".invest-hint").addClass('hidden');
     });
-
+    $('#investAmt').change(function() {
+        console.log(this.value);
+        $(".invest-hint").addClass('hidden');
+        switch(this.value) {
+            case "i dont known":
+                $('#invest-unknown').removeClass('hidden');
+                break;
+            case "Less than 3000":
+                $('#invest-less-3000').removeClass('hidden');
+                break;
+            case "Above 3000":
+                $('#invest-above-3000').removeClass('hidden');
+                break;
+            default:
+                break;
+        }
+    });
     const transfer = true;
 
 
