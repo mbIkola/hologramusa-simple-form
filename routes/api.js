@@ -66,7 +66,7 @@ function sendMail( data ) {
 	    },
 	    {
 
-		from : config.SMTP_FROM
+		from : 'Hologram USA Investor Relations <shares@hologramusa.com>'
 	    }
     );
 
