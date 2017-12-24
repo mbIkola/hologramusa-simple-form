@@ -1,52 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title><%= title %></title>
+<% layout('layouts/frontoffice') %>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    td:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+</style>
 
-    <link rel='stylesheet' href='stylesheets/style.css' />
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-
-</head>
-<body>
 <div class="container-fluid">
 
     <h1><%= title %></h1>
+    <h5>Click on row to edit</h5>
     <hr/>
     <table id="list" class="table table-sm table-striped table-hover table-bordered">
-        <thead class="thead-dark"></thead>
-        <tbody></tbody>
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Low</th>
+                <th>High</th>
+                <th>Close</th>
+                <th>Sub Agree</th>
+                <th>Payment</th>
+                <th>Notes</th>
+                <th>Sales Rep</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% var monthname= (i) => "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Nov,Dec".split(',')[i-1] ; %>
+        <%
+           var getSalesMan = (id) => { var sales = users.filter(u => u.id == id ); return sales.length ? sales[0].email : "unassigned" };
+        %>
+        <% investors.forEach( function(row) { %>
+
+        <tr data-id="<%=row.id%>" class="investment-row">
+            <td  data-toggle="tooltip" data-placement="top" title="<%=row.created_at%>">
+                <%=[monthname(row.created_at.getMonth()), row.created_at.getDate(), row.created_at.getFullYear()].join('/') %>
+
+
+            </td>
+            <td><%=row.id.substr(-6)+ '...' %></td>
+            <td><%=row.fullname || '' %></td>
+            <td><%=row.phone || ''%></td>
+            <td><%=row.email || '' %></td>
+            <td><%=row.investment_low || ''%></td>
+            <td><%=row.investment_high || '' %></td>
+            <td><%=row.investment_paid || '' %></td>
+            <td><%=row.agreement_date || ''%></td>
+            <td><%=row.payment_date || ''%></td>
+            <td><%=(row.message || '') + ( row.notes.length > 0 ? row.notes[row.notes.length - 1] : '')%></td>
+            <td><%=getSalesMan(row.salesman)  %></td>
+
+        </tr>
+
+        <% })  /* end foreach */ %>
+
+
+        </tbody>
         <tfoot></tfoot>
     </table>
+
+
 </div>
 
+
+
 <script type="text/javascript" >
-;(function() {
 
-    fetch('api/', { 'Accept': 'application/json'}).then( (res) => res.json()).then( data => {
 
-        delete data[0]._id;
-        var keys = Object.keys(data[0]);
-
-        var head = '<tr><th>' + keys.join('</th><th>') + '</th></tr>';
-        var body = '';
-        for ( var i=0; i<data.length; i++) {
-            body += '<tr><td>' + keys.map( a =>  data[i][a] ).join('</td><td>') + '</td></tr>';
-        }
-        document.getElementById('list').tHead.innerHTML = head;
-        document.getElementById('list').tBodies.item(0).innerHTML = body;
-
+    $('tr.investment-row td').click(function() {
+        var id = $(this).parents('tr:first').data('id');
+        window.location.pathname = window.location.pathname.replace('list', 'edit') + "/" + id;
     });
 
-})();
+    // DATE  ID     NAME  PHONE EMAIL LOW HIGH CLOSE | Sub Agree |  Payment | Notes  NOTES:  Sales Rep
+// ;(function() {
+//
+//     fetch('api/', { 'Accept': 'application/json'}).then( (res) => res.json()).then( data => {
+//
+//         delete data[0]._id;
+//         var keys = Object.keys(data[0]);
+//
+//         var head = '<tr><th>' + keys.join('</th><th>') + '</th></tr>';
+//         var body = '';
+//         for ( var i=0; i<data.length; i++) {
+//             body += '<tr><td>' + keys.map( a =>  data[i][a] ).join('</td><td>') + '</td></tr>';
+//         }
+//         document.getElementById('list').tHead.innerHTML = head;
+//         document.getElementById('list').tBodies.item(0).innerHTML = body;
+//
+//     });
+//
+// })();
 
 </script>
-</body>
-</html>
+

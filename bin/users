@@ -1,0 +1,124 @@
+#!/usr/bin/env node
+
+
+
+var app = require('../app');
+var debug = require('debug')('sales-invest-form:server');
+var sprintf = require('sprintf-js').sprintf;
+var faker = require('faker/locale/uk');
+
+
+var args = process.argv.slice(2);
+
+
+function showUsage() {
+    console.info("You are doing it wrong");
+    console.info("This script allows you to create/list/delete ADMIN accounts in system");
+    console.info("Usage: ./users create [email] [?plaintextpassword] [?firstname] [?lastname]");
+    console.info("Usage: ./users list");
+    console.info("Usage: ./users delete [email]");
+    process.exit(-1);
+}
+
+if ( args.length === 0 || args.length > 3) {
+    showUsage();
+}
+
+
+var cmd = args[0];
+
+switch (cmd ) {
+    case "create":
+        createUser();
+        break;
+    case "list":
+        listUsers();
+        break;
+    case "delete":
+        deleteUser();
+        break;
+    default:
+        showUsage();
+}
+
+function createUser() {
+    var email = args[1];
+    if ( ! email ) return showUsage();
+    var pass = args.length > 2 ? args[2] : Math.random().toString(16).substr(2);
+    var first = args.length > 3 ? args[3] : 'Пан ' + faker.name.firstName(0);
+    var last  = args.length > 4 ? args[4] : faker.name.lastName(0);
+
+    console.log("Creating user '" + email + "' and password '" + pass + "'");
+
+
+    var user = new app.User({
+        email: email,
+        firstname: first,
+        lastname: last,
+        role: 'admin'
+    });
+    user.password = pass;
+
+
+    user.save()
+    .then((user) => {
+        console.info("Ok.  Password hash for new user is " + user.password_hash);
+        console.info(user.toJSON());
+        process.exit(0);
+    })
+    .catch((err) => {
+        console.error("Sorry, i can't do that.");
+        console.error(err);
+        process.exit(-1);
+    });
+}
+
+function deleteUser() {
+    var email = args[1];
+    if (!email) return showUsage();
+    app.User.findOne({email: email}).exec()
+        .then(u => {
+            if ( ! u ) {
+                console.info("No such user. ");
+                process.exit(-1);
+            }
+
+            console.info("Removing user " + u.email + " #" + u.id);
+            return app.User.remove({ _id : u.id} );
+        })
+        .then( () => {
+            console.info("Done");
+            process.exit(0);
+        })
+        .catch((err) => {
+            console.error("Something wrong happened", err);
+            process.exit(-1);
+        });
+}
+
+function listUsers() {
+    app.User.find( { role: "admin"})
+        .select( {id: 1, email: 1, firstname: 1, lastname: 1, role: 1})
+        .exec()
+        .then(function(users) {
+
+            let usersText = users.map(
+                (u) => sprintf(
+                    "%24s %20s  %20s %20s %10s",
+                    u.id,
+                    u.email,
+                    u.firstname || "", u.lastname || "",
+                    u.role
+                )
+            ).join("\n");
+
+            console.info(sprintf("%24s %20s %20s %20s %10s", "id", "email", "firstname", "lastname", "role") );
+            console.info(usersText);
+
+        }).then(() => {
+            process.exit(0);
+        }).catch((err) => {
+            console.error("Something bad happened: ", err);
+            process.exit(-1);
+        });
+}

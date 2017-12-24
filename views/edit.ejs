@@ -1,0 +1,245 @@
+<% layout('layouts/frontoffice') %>
+
+<style>
+    .form-control-danger {
+        border-color: darkorange;
+    }
+</style>
+
+<div class="container-fluid">
+    <h1><%= title %></h1>
+
+    <hr/>
+
+    <%
+    var getSalesMan = (id) => { var sales = users.filter(u => u.id == id ); return sales.length ? sales[0].email : "unassigned" };
+    %>
+
+<form onsubmit="event.preventDefault(); return false;">
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="form-group row">
+
+
+
+                <label  class="pr-2 col-form-label "> Assigned to: </label>
+                <div class="col-2">
+                    <input type="text"  value="<%=getSalesMan(row.salesman) %>" class="form-control " name="assignedto" readonly>
+                </div>
+
+                <% var visibilityClass= (user.role === "admin" ? "" : "invisible")%>
+
+                        <label  for="assignto" class=" col-form-label pr-2 <%=visibilityClass%>"> Assign To: </label>
+                        <select class="custom-select col-4 <%=visibilityClass%>">" id="assignto" name="salesman" >
+                            <option selected> Choose operator </option>
+                            <% users.forEach( function(user) { %>
+                            <option value="<%=user.id%>"> <%=user.firstname || '' %> <%=user.lastname || '' %> <%=user.email %></option>
+                            <%}) %>
+                        </select>
+
+
+
+                <div class="col-2">
+                    <button name="assignme" value="assignme" class="btn btn-primary" data-salesman="<%=user._id%>" disabled>Assign To Me</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-2 ">
+            <button name="save" value="save" class="btn btn-primary" disabled>Save</button>
+        </div>
+
+    </div>
+    <div class="row">
+    <div class="col-md-6 col-sm-12">
+
+        <div class="form-group row">
+            <label  class="col-2 col-form-label"> ID: </label>
+            <div class="col-lg-8 col-md-12 "><%=row.id%></div>
+        </div>
+
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label"> Created At: </label>
+            <div class="col-lg-8 col-md-12 "><%=row.created_at%></div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="fullname"> Full Name: </label>
+            <div class="col-lg-8 col-md-12 ">
+              <input class="form-control" type="text" value="<%=row.fullname || ''%>" id="fullname" name="fullname">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="phone"> Phone: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="tel" value="<%=row.phone || ''%>" id="phone" name="phone">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="email"> Email: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="email" value="<%=row.email || ''%>" id="email" name="email">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="investment_low"> Investment Low: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="number" value="<%=row.investment_low %>" id="investment_low" name="investment_low">
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="investment_high"> Investment High: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="number" value="<%=row.investment_high%>" id="investment_high" name="investment_high">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="investment_paid"> Investment Paid: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="number" value="<%=row.investment_paid%>" id="investment_paid" name="investment_paid">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="agreement_date"> Agreement Date: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="date" value="<%=row.agreement_date ? row.agreement_date.toISOString().slice(0,10) : ''%>" id="agreement_date" name="agreement_date">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-lg-4 col-md-12  col-form-label" for="payment_date"> Payment Date: </label>
+            <div class="col-lg-8 col-md-12 ">
+                <input class="form-control" type="date" value="<%=row.payment_date ? row.payment_date.toISOString().slice(0,10) : ''%>" id="payment_date" name="payment_date">
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-6 col-sm-12">
+        <div class="form-group">
+            <label for="message" class="col col-form-label" >Notes</label>
+            <div class="col-md-12 ">
+            <textarea class="form-control" id="message" rows="3" name="message"> <%=row.message %></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="comment" class="col col-form-label" >Left your comment</label>
+            <div class=" col-md-12 ">
+                <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-2 col-sm-4 push-sm-8 push-md-10">
+                <button name="postcomment" value="postcomment" class="btn btn-primary " disabled>Post</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col col-form-label" >Last 10 Comments: </label>
+            <div class="col-md-12 ">
+                <% (row.notes || []).slice(-10).reverse().forEach( function(note) { %>
+                <div class="text-gray"> <%=note  %></div>
+                <% }) %>
+            </div>
+        </div>
+
+    </div>
+
+    </div>
+    <div class="row">
+
+    <!-- <div class="col-sm-1 push-sm-9">
+        <a href="next" class="btn btn-primary">Next unassigned</a>
+    </div> -->
+    <div class="col-sm-1 push-sm-10">
+        <button name="save" value="save" class="btn btn-primary" disabled>Save</button>
+    </div>
+    </div>
+</form>
+
+
+</div>
+
+<script type="text/javascript">
+    function post(data) {
+        return fetch('#', {
+            headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'},
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(data )
+        }).then(function(res) {
+            if ( res.status < 400) {
+                window.location.reload();
+            } else {
+                console.error("Something wrong");
+            }
+        });
+    }
+    function main() {
+        var postcomment = $('.btn[name="postcomment"]');
+        var comment = $('[name="comment"]');
+        comment.on('keyup', function() {
+            if ( $(this).val().length > 0 ) {
+                postcomment.removeAttr('disabled');
+            } else {
+                postcomment.attr('disabled', true);
+            }
+        });
+        postcomment.click(function() {
+            $(this).attr('disabled', true);
+            post({ comment : comment.val() });
+            return false;
+        });
+
+        <% if ( ! row.salesman || user.role === 'admin' ) { %>
+            $('.btn[name="assignme"]').removeAttr('disabled');
+        <% } %>
+        $('.btn[name="assignme"]').click( function() {
+            console.log("Changing owner: " , $(this).data('salesman'));
+            post({salesman: $(this).data('salesman')});
+        });
+
+
+        $('[name="salesman"]').change(function() {
+            console.log("Changing owner: " , $(this).val());
+            post({salesman: $(this).val()});
+        });
+        function makeitorange() {
+            $(this).toggleClass('form-control-danger', this.originalValue !== $(this).val());
+            if ( $('form .form-control-danger').length > 0 ) {
+                $('.btn[name="save"]').removeAttr('disabled');
+            } else {
+                $('.btn[name="save"]').attr('disabled', true);
+            }
+        }
+
+        $('input,textarea[name="message"]').on('change',makeitorange).on('keyup', makeitorange).each(function() {
+            this.originalValue = $(this).val();
+        });
+
+        $('.btn[name="save"]').click(function() {
+            var toSave = {};
+            $('form .form-control-danger').each(function( ) {
+               toSave[$(this).attr('name')]  = $(this).val();
+            });
+            console.log("About to save:", toSave);
+            post(toSave);
+
+        });
+
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+    }
+    $(document).ready(main);
+</script>
