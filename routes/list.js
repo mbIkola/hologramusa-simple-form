@@ -8,15 +8,20 @@ function createRoutes( app ) {
         return app.User.find(query).exec();
     }
 
+    function getFilteredByAuthClaimsQuery(req) {
+        var query = {};
+        if (req.currentUser.role === 'admin') {
+            query = {};
+        } else {
+            query = {$or: [{"salesman": req.currentUser._id}, {"salesman": {$exists: false}}, {"salesman": {$in: [null, undefined]}}]};
+        }
+        return query;
+    }
+
     router.get('/', function (req, res, next) {
 
         console.log(req.currentUser);
-        var query = {};
-        if ( req.currentUser.role === 'admin' ) {
-             query = {};
-        } else {
-            query = { $or: [{ "salesman" : req.currentUser._id }, {"salesman" : {$exists : false}}, {"salesman" : { $in: [null, undefined] }}]};
-        }
+        var query = getFilteredByAuthClaimsQuery(req);
         Promise.all( [
             app.Investments.find(query).sort({created_at_timestamp: -1}).exec(),
             getAllUsers(req.currentUser.role === "admin" ? {} : { _id : req.currentUser._id })
@@ -40,6 +45,22 @@ function createRoutes( app ) {
         }).catch(err => {
             console.error(err);
             res.render('fatal');
+        });
+    });
+    router.post('/archive', function(req, res, next) {
+       var toClose = req.body;
+        var query = getFilteredByAuthClaimsQuery(req);
+        query._id = { $in : toClose }  ;
+
+        app.Investments.update(query, {
+            is_archived: true
+        }).exec().then(function(results) {
+            console.log("Closed claims:" + toClose.join() + " by " + req.currentUser.email);
+            console.log(results);
+            res.send(202);
+        }).catch( err => {
+            console.error("Error while archiving claims:", err);
+            res.send(500);
         });
     });
 

@@ -16,6 +16,20 @@
     %>
 
 <form onsubmit="event.preventDefault(); return false;">
+    <%
+        if ( row.is_archived ) {
+    %>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="form-group row">
+                    This claim is <b>*ARCHIVED*</b>. All fields are read-only.
+                    <button class="btn btn-primary" name="archive"> ReOpen </button>
+                </div>
+            </div>
+        </div>
+    <%
+        }
+    %>
     <div class="row">
         <div class="col-sm-10">
             <div class="form-group row">
@@ -156,9 +170,9 @@
     </div>
     <div class="row">
 
-    <!-- <div class="col-sm-1 push-sm-9">
-        <a href="next" class="btn btn-primary">Next unassigned</a>
-    </div> -->
+    <div class="col-sm-1 push-sm-9">
+        <button name="archive" class="btn btn-primary" >Close/Archive</button>
+    </div>
     <div class="col-sm-1 push-sm-10">
         <button name="save" value="save" class="btn btn-primary" disabled>Save</button>
     </div>
@@ -184,6 +198,7 @@
         });
     }
     function main() {
+        var row =  <%- JSON.stringify(row) %>;
         var postcomment = $('.btn[name="postcomment"]');
         var comment = $('[name="comment"]');
         comment.on('keyup', function() {
@@ -235,10 +250,31 @@
 
         });
 
+        $('.btn[name="archive"]').click(function() {
+            if ( ! row.is_archived ) {
+                if (confirm("You're going to close & archive claim from " + row.email + " " + row.fullname + ". Are you sure?")) {
+                    post({
+                        archive: true
+                    });
+                }
+            } else {
+                post({
+                    archive: false
+                });
+            }
+        });
+
+
         $('form').on('submit', function(e) {
             e.preventDefault();
             return false;
         });
+
+
+        if (row.is_archived ) {
+            $('form').find('input,textarea,button').not('[name="archive"]').attr('disabled', true).attr('readonly', true);
+        }
+        $('.btn[name="archive"]').text( row.is_archived ? "ReOpen" : "Close/Archive");
 
     }
     $(document).ready(main);

@@ -58,6 +58,8 @@ function routes( app ) {
     router.post('/:investmentId', ensureAccessRightsMiddleware, function(req, res, next) {
         if ( req.body.salesman ) {
             req.row.salesman = req.body.salesman;
+        } else if ( req.body.archive !== "undefined"  ) {
+            req.row.is_archived = !!req.body.archive;
         } else if ( req.body.comment ) {
             req.row.notes.push(
                 "[" + (new Date()).toISOString().slice(0, 10) + "] by <" + req.currentUser.email + ">: "

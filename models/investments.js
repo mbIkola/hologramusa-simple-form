@@ -17,6 +17,7 @@ var investmentSchema = new Schema({
     investment_low: Number,
     investment_high: Number,
     investment_paid: Number,
+    is_archived : { type: Boolean, default: false },
     agreement_date: { type: Date, default: null},
     payment_date: { type: Date, default: null},
     message: String,

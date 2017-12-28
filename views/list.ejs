@@ -14,9 +14,36 @@
     <hr/>
     <table id="list" class="table table-sm table-striped table-hover table-bordered">
         <thead class="thead-dark">
+            <tr >
+                <th colspan="3">
+                    <label for="filter">Display:</label>
+                    <select id="filter" name="filter">
+                        <option value="all" selected> All </option>
+                        <option value="mine" > Assigned To Me</option>
+                        <option value="unassigned"> Unassigned </option>
+                        <option value="archived"> Closed Only </option>
+                    </select>
+                </th>
+                <th colspan="2">
+                    <label for="show-archived"> Show Closed: </label>
+                    <input type="checkbox" name="show-archived" id="show-archived" >
+                </th>
+                <th colspan="9">
+                    <button class="btn btn-secondary disabled"  name="close-selected" disabled="true"> Close&Archive selected </button>
+                </th>
+            </tr>
             <tr>
+                <th colspan="2">
+                    <select name="select-claims">
+                        <option value="please choose">Select</option>
+                        <option value="all">All</option>
+                        <option value="none">None</option>
+                        <option value="unassigned">Unassigned</option>
+                        <option value="mine">Mine</option>
+                    </select>
+                </th>
+
                 <th>Date</th>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Email</th>
@@ -36,13 +63,18 @@
         %>
         <% investors.forEach( function(row) { %>
 
-        <tr data-id="<%=row.id%>" class="investment-row">
+        <tr data-id="<%=row.id%>" data-is-archived="<%=row.is_archived%>" data-salesman="<%=row.salesman%>" class="investment-row"
+            <% if (row.is_archived) { %> style="color: gray; " <% } %>
+            >
+            <td class="clickablya">
+                <input type="checkbox" name="investments" id="check-<%=row.id%>" value="<%=row.id%>">
+            </td>
+            <td class="clickablya"><label for="check-<%=row.id%>"><%=row.id.substr(-6)+ '...' %></label></td>
             <td  data-toggle="tooltip" data-placement="top" title="<%=row.created_at%>">
                 <%=[monthname(row.created_at.getMonth()), row.created_at.getDate(), row.created_at.getFullYear()].join('/') %>
 
 
             </td>
-            <td><%=row.id.substr(-6)+ '...' %></td>
             <td><%=row.fullname || '' %></td>
             <td><%=row.phone || ''%></td>
             <td><%=row.email || '' %></td>
@@ -71,12 +103,112 @@
 <script type="text/javascript" >
 
 
-    $('tr.investment-row td').click(function() {
+    $('tr.investment-row td:not(.clickablya)').click(function() {
         var id = $(this).parents('tr:first').data('id');
         window.location.pathname = window.location.pathname.replace('list', 'edit') + "/" + id;
     });
 
-    // DATE  ID     NAME  PHONE EMAIL LOW HIGH CLOSE | Sub Agree |  Payment | Notes  NOTES:  Sales Rep
+    $('select[name="select-claims"]').change(function() {
+
+        function selectNone() {
+            $('.investment-row input:checkbox').prop('checked', false);
+        }
+
+        var toSelect = $(this).val() || "";
+
+        switch( toSelect.toLowerCase() ) {
+            case 'none':
+                selectNone();
+                break;
+            case 'all':
+                $('.investment-row input:checkbox').prop('checked', true);
+                break;
+            case 'mine':
+                selectNone();
+                $('.investment-row[data-salesman="<%=user.id %>"] input:checkbox').prop('checked', true);
+                break;
+            case 'unassigned':
+                selectNone();
+                $('.investment-row[data-salesman="' + undefined + '"] input:checkbox').prop('checked', true);
+                break;
+            default:
+                return;
+        }
+        setTimeout(function() { onSelectedClaimsChanged(); }, 1);
+        return false;
+    });
+
+    $('select[name="filter"]').change(function() {
+        var toShow = $(this).val();
+        switch( toShow ) {
+            case 'all':
+                $('.investment-row').show();
+                break;
+
+            case 'mine':
+                $('.investment-row').hide().filter('[data-salesman="<%=user.id %>"]').show();
+                break;
+
+            case 'unassigned':
+                $('.investment-row').hide().filter('[data-salesman="undefined"]').show();
+                break;
+
+            case 'archived':
+                $('.investment-row').hide().filter('[data-is-archived="true"]').show();
+                $('input[name="show-archived"]').prop('checked', true);
+                break;
+        }
+
+    });
+
+    $('input[name="show-archived"]').change(showHideArchivedRows);
+
+    function showHideArchivedRows() {
+        setTimeout(function() {
+            if ( $('input[name="show-archived"]').prop('checked')) {
+                $('.investment-row').filter('[data-is-archived="true"]').show();
+            } else {
+                $('.investment-row').filter('[data-is-archived="true"]').hide();
+            }
+        }, 1);
+    }
+    function onSelectedClaimsChanged() {
+        var selected = $('input:checkbox[name="investments"]:checked').length;
+        if ( selected > 0 ) {
+            $('.btn[name="close-selected"]').removeClass('disabled').removeAttr('disabled');
+        } else {
+            $('.btn[name="close-selected"]').addClass('disabled').attr('disabled', true);
+        }
+    }
+    $('input:checkbox[name="investments"]').change(onSelectedClaimsChanged);
+
+    $('.btn[name="close-selected"]').click( function() {
+        var selected = $('input:checkbox[name="investments"]:checked').map( function() {
+            return this.value;
+        }).get();
+        if ( selected.length === 0 ) {
+            return false;
+        }
+        if ( confirm( "You're about to close " + selected.length + " claims. Are you sure? ")) {
+
+            fetch(window.location.pathname.replace('list', 'list/archive'), {
+                headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'},
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(selected)
+            }).then( res => {
+                console.log(res.statusCode);
+                window.location.reload();
+            });
+
+        } else {
+            return false;
+        }
+    });
+
+    showHideArchivedRows();
+
+// DATE  ID     NAME  PHONE EMAIL LOW HIGH CLOSE | Sub Agree |  Payment | Notes  NOTES:  Sales Rep
 // ;(function() {
 //
 //     fetch('api/', { 'Accept': 'application/json'}).then( (res) => res.json()).then( data => {
