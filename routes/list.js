@@ -18,7 +18,7 @@ function createRoutes( app ) {
             query = { $or: [{ "salesman" : req.currentUser._id }, {"salesman" : {$exists : false}}, {"salesman" : { $in: [null, undefined] }}]};
         }
         Promise.all( [
-            app.Investments.find(query).exec(),
+            app.Investments.find(query).sort({created_at_timestamp: -1}).exec(),
             getAllUsers(req.currentUser.role === "admin" ? {} : { _id : req.currentUser._id })
         ]).then((everything) => {
             return {
