@@ -18,38 +18,19 @@
                                 <div class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
                                        aria-expanded="true" aria-controls="collapseOne">
-                                        Notes to agents/call center
+                                        Note To Agents
                                     </a>
                                 </div>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
                                  aria-labelledby="headingOne">
                                 <div class="panel-body">
-                                    <ul>
-                                        <li>How to buy, You can buy at hologramusa.com/invest</li>
-                                        <li>Price / Shares: $8 per shares Minimum of 50 shares, which is $400 DOLLARS
-                                        </li>
-                                        <li>Average investment: $5k, you can buy any amount</li>
-                                        <li>Mail request & More info request: All info is provided via your email or you
-                                            can go to hologramusa.com/invest
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="panel-body">
-                                    <p class="bg-warning">
-                                        <strong>If caller demands to speak with a HologramUSA Investor relations
-                                            rep:</strong>
-                                    <ul>
-                                        <li>Due to the high volume of calls, a Hologram USA Investor Relations Rep will
-                                            be in touch with you as soon as you review and submit your subscription
-                                            agreement, it’s titled “Hologram USA Subscription Agreement.
-                                        </li>
-                                        <li>You should have received the information via email</li>
-                                        <li>You will find more information at hologramusa.com/invest to help you make a
-                                            decision to invest
-                                        </li>
-                                    </ul>
-                                    </p>
+                                    <p></p><h4>If caller calls during <strong><u>5PM to 9AM PST:</u></strong></h4>
+                                    All HologramUSA Reps are Unavailable to take calls. Direct client to hologramUSA.com/invest and a HolgoramUSA rep will reach out to them asap.
+                                    <p></p>
+                                    <h4><strong>During Available Hours</strong></h4>
+                                    <p>If customer has any questions please transfer call to <strong>310-295-0050</strong></p>
+                                    <p>Only transfer call after getting all information.</p>
                                 </div>
                             </div>
                         </div>
@@ -109,9 +90,11 @@
 
                         <!-- Start Form -->
                         <form id="ipoIntakeForm">
-                            <div class="col col-xs-12">
+                            <div class="col-xs-12">
                                 <p class="lead">
-                                    Hi, and thank you for calling about the Hologram USA Investment Opportunity.
+                                    Hi, and thank you for calling about the Hologram USA Investment Opportunity; a Hologram representative will answer all of your questions about the Investment opportunity,  I just have a couple of question to ask you.
+                                    <br><br>
+                                    This call may be recorded for quality purposes.
                                 </p>
                             </div>
 
@@ -127,31 +110,10 @@
                                 <input type="text" name="phone" id="phone" class="form-control input-lg" required/>
                             </div>
 
-                            <!-- Email -->
-                            <div class="form-group col-xs-12">
-                                <label for="email">What is your e-mail address?</label> &nbsp;<span
-                                        class="label label-info">required</span>
-                                <input type="email" name="email" id="email" class="form-control input-lg"/>
-                                <br>
-                                <br>
-                                <p class="bg-danger">
-                                    <strong>If client refuses email: </strong>
-                                    <br>
-                                    <span>Remind them that in order to receive any information, we need a valid email address.</span>
-
-                                    <!--
-                                                        <br><br>
-
-                                                        <span><strong>If Client still refuses: </strong></span>
-                                                        <br>
-                                                        <span>Let them know that we can move forward and a HologramUSA investor relations rep will contact them.</span>
-                                    -->
-                                </p>
-                            </div>
 
 
                             <!-- State -->
-                            <div class="form-group col-xs-12 hidden">
+                            <div class="form-group col-xs-12 ">
                                 <label for="state">What state do you live in?</label>
                                 <select name="state" id="state" class="form-control input-lg">
                                     <option value="default">Please Select</option>
@@ -209,36 +171,57 @@
                                 </select>
                             </div>
                             <!-- Company -->
-                            <div class="form-group col-xs-12 hidden">
-                                <label for="company">Are you calling as a private investor or on behalf of a
-                                    company.</label>
-                                <input type="text" name="company" id="company" placeholder="optional"
-                                       class="form-control input-lg"/>
+
+                            <!-- Email -->
+                            <div class="form-group col-xs-12">
+                                <label for="email">What is your e-mail address?</label> &nbsp;<span
+                                        class="label label-info">required</span>
+                                <input type="email" name="email" id="email" class="form-control input-lg"/>
+                                <br>
+                                <br>
+                                <p class="bg-danger">
+                                    <strong>If client refuses email: </strong>
+                                    <br>
+                                    <span>Remind them that in order to receive any information, we need a valid email address.</span>
+
+                                    <!--
+                                                        <br><br>
+
+                                                        <span><strong>If Client still refuses: </strong></span>
+                                                        <br>
+                                                        <span>Let them know that we can move forward and a HologramUSA investor relations rep will contact them.</span>
+                                    -->
+                                </p>
                             </div>
-                            <!-- Hear About Us -->
-                            <div class="form-group col-xs-12 hidden">
-                                <label for="hearAboutUs">How did you hear about us?</label>
-                                <select name="hearAboutUs" id="hearAboutUs" class="form-control input-lg">
+
+
+
+
+                            <div class="form-group col-xs-12">
+                                <label for="investAmt">How much are you planning to invest in the IPO?</label>
+                                <select name="investAmt" id="investAmt" class="form-control input-lg">
                                     <option value="default">Please Select</option>
-                                    <option value="television">Television</option>
-                                    <option value="radio">Radio</option>
-                                    <option value="digital">Digital</option>
-                                    <option value="referral">Referral</option>
-                                    <option value="other">Other</option>
+                                    <option value="less than 400">Less Than $400</option>
+                                    <option value="400 to 999">$400 to $999</option>
+                                    <option value="1,000 to 2,999">$1,000 to $2,999</option>
+                                    <option value="3,001 to 9,999">$5,000 to $9,999</option>
+                                    <option value="10,000 to 19,999">$10,000 to $19,999</option>
+                                    <option value="20,000 to 49,999">$20,000 to $49,999</option>
+                                    <option value="50,000 to 99,999">$50,000 to $99,999</option>
+                                    <option value="100,000+">$100,000 Or More</option>
+                                    <option value="i dont known">Not Sure</option>
                                 </select>
                             </div>
-                            <!-- Show if hearAboutUs val() === 'referral' -->
-                            <div class="form-group col-xs-12" id="referralSourceWrapper">
-                                <label for="referralSource">Please Specify Referral</label>
-                                <input type="text" id="referralSource" name="referralSource"
-                                       class="form-control input-lg"/>
+
+                            <div class="form-group hidden invest-hint col-xs-12" id="invest-unknown">
+                                <p >
+                                    Ok Great, before I transfer you please note you can download the company-deck and franchise information at HologramUSA.net
+                                </p>
                             </div>
-                            <!-- Show if hearAboutUs val() === 'other' -->
-                            <div class="form-group col-xs-12" id="otherSourceWrapper">
-                                <label for="otherSource">Please Specify Other</label>
-                                <input type="text" id="otherSource" name="otherSource" class="form-control input-lg"/>
-                            </div>
-                            <!-- Notes -->
+
+
+
+
                             <div class="form-group col-xs-12">
                                 <label for="message">Notes</label>
                                 <textarea name="message" id="message" placeholder="optional"
@@ -247,38 +230,7 @@
 
 
                             <hr/>
-                            <div class="form-group col-xs-12">
-                                <p class="bg-warning">
-                                    <strong> Operator - Continues talking </strong>
-                                </p>
-                            </div>
-                            <!-- Investment Amount -->
-                            <div class="form-group col-xs-12 ">
-                                <label for="investAmt" class="bg-warning">How much are you planning to invest in the
-                                    IPO? Above or below $ 5000</label>
-                                <span class="label label-info">required</span>
-                                <select name="investAmt" id="investAmt" class="form-control input-lg">
-                                    <option value="default">Please Select</option>
-                                    <option value="i dont known">I Don't Know</option>
-                                    <option value="Less than 3000">Less than $5,000</option>
-                                    <option value="Above 3000">Above $5,000</option>
-                                </select>
-                            </div>
 
-                            <div class="form-group hidden invest-hint col-xs-12" id="invest-unknown">
-                                <p class="bg-danger">
-                                    <strong>I don’t know/not sure –</strong>
-                                </p>
-                                Operator<br/>
-                                <ul>
-                                    <li>This is just an estimate & does not commit you.</li>
-                                    <li>If you read all of the information & you like what you see... what do you have
-                                        available to invest?
-                                    </li>
-                                    <li>The minimum is 50 shares at $8 DOLLARS A SHARE which is $400 DOLLARS</li>
-                                    <li>NOTE: if they still dont know click "If less than $5000 DOLLARS"</li>
-                                </ul>
-                            </div>
 
                             <div class="form-group hidden invest-hint col-xs-12" id="invest-less-3000">
                                 <p class="bg-danger">
@@ -303,12 +255,15 @@
                                     <strong>Above $5000- Operator Prep for LIVE Transfer</strong>
                                 </p>
                             </div>
+
+
+
                             <p class="lead">
                                 Operator:
                             </p>
                             <ul>
                                 <li>Please hold on and I’ll transfer you to a Hologram USA Investor Relations Rep.</li>
-                                <li><b>transfer to 3102950050</b></li>
+                                <li><b>Transfer to 310-295-0050</b></li>
                             </ul>
                             <p class="lead">
                                 Transfer call - Operator wait 3 rings<br/><br/>
