@@ -62,15 +62,15 @@ function authMiddleware(req, res, next) {
                 next();
             } else {
                 console.error("Could not find user in database: ", req.session.user_id )
-                res.redirect('/login');
+                res.redirect('/callcenter/login');
             }
         }).catch( err => {
             console.error("Auth fail: ", err);
-            res.redirect('/login');
+            res.redirect('/callcenter/login');
         });
     } else {
         console.log("Unauthorized access  to /list");
-        res.redirect('/login');
+        res.redirect('/callcenter/login');
     }
 }
 function adminOnlyAuthMiddleware(req, res, next) {

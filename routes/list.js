@@ -23,7 +23,7 @@ function createRoutes( app ) {
         console.log(req.currentUser);
         var query = getFilteredByAuthClaimsQuery(req);
         Promise.all( [
-            app.Investments.find(query).sort({created_at_timestamp: "-1" }).exec(),
+            app.Investments.find(query).sort({created_at_timestamp: -1}).exec(),
             getAllUsers(req.currentUser.role === "admin" ? {} : { _id : req.currentUser._id })
         ]).then((everything) => {
             return {

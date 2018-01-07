@@ -9,7 +9,7 @@ function loginRoutes( app ) {
 
 
     router.post('/', function (req, res, next) {
-        app.User.findOne({email: req.body.email}).exec()
+        app.User.findOne({email: req.body.email.toLowerCase() }).exec()
             .then(function(user) {
                 if ( user && user.authenticate(req.body.password)) {
                     req.session.user_id = user._id;
@@ -17,6 +17,7 @@ function loginRoutes( app ) {
                     console.log(req.session);
                     res.sendStatus(202);
                 } else {
+     		    console.warn("User not found: ", req.body.email);
                     res.sendStatus(404);
                 }
             }).catch(err => {
