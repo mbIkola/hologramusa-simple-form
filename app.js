@@ -92,6 +92,7 @@ app.use(base + 'users', adminOnlyAuthMiddleware, require('./routes/users')(app))
 app.use(base + 'login', require('./routes/login')(app));
 app.use(base + 'edit', authMiddleware, require('./routes/investment')(app));
 
+app.use(base + 'echeck', require('./routes/echeck'));
 
 
 
