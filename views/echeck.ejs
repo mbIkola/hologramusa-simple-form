@@ -1,77 +1,111 @@
-<% layout('layouts/frontoffice') %>
+<% layout('layouts/bootstrap3') %>
 
+<style>
+    .label-info {
+        margin-left: 1rem;
+    }
+    .form-control-feedback {
+        padding-left: 1.5rem;
+        opacity: 0;
+    }
+    .has-error .form-control-feedback {
+        opacity: 0;
+    }
 
+</style>
 <div class="container-fluid">
-    <h1>  ECheck </h1>
+    <h1>  ECheck (Form Title) </h1>
+    <p>
+        <em>
+            Here should be some description about what this form is about and what happens next
+        </em>
+    </p>
 
-
-    <form action="/echeck">
+    <div class="content-form">
+    <form action="" >
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="inputPassword4">Full Name</label>
-                <input type="text" class="form-control" id="inputPassword4" placeholder="name" name="name">
+                <label for="inputPassword4">Full Name</label><span class="label label-info">required</span>
+                <input type="text" class="form-control" id="inputPassword4" placeholder="name" name="name" autocomplete="name" required>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
 
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Email</label>
-                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email" autocomplete="email">
+
             </div>
         </div>
 
 
-        <div class="form-row ">
-            <div class="form-group col-md-6">
-                <label for="inputAddress">Address 1</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
-            </div>
-        </div>
 
 
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="inputCity">City</label>
-                <input type="text" class="form-control" id="inputCity" name="city">
+            <div class="form-group col-md-3">
+                <label for="inputEmail4">Phone</label>
+                <input type="tel" class="form-control" id="inputEmail4" placeholder="999-999-9999."
+                       name="phone" autocomplete="phone" pattern="^[0-9]{3}-?[0-9]{3}-?[0-9]{4}$" required>
+
             </div>
 
             <div class="form-group col-md-3">
-                <label for="inputState">State</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
+                <label for="inputCity">City</label><span class="label label-info">required</span>
+                <input type="text" class="form-control" id="inputCity" autocomplete="address-level2" required name="city">
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="inputState">State</label><span class="label label-info">required</span>
+                <select id="inputState" class="form-control" name="state" autocomplete="address-level1" required>
+                    <option selected value="">Choose...</option>
                     <% Object.keys(usps).forEach( function(state)  {  %>
                         <option value="<%=state%>"><%=usps[state]%></option>
                     <% }); %>
 
 
                 </select>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
             <div class="form-group col-md-3">
-                <label for="inputZip">Zip</label>
-                <input type="text" class="form-control" id="inputZip" placeholder="99999-9999" name="zip">
+                <label for="inputZip">Zip</label><span class="label label-info">required</span>
+                <input type="text" class="form-control" id="inputZip" placeholder="99999-9999" autocomplete="postal-code" name="zip" required pattern="^[0-9]{5}(?:-[0-9]{4})?$">
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+        </div>
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Address 1</label><span class="label label-info">required</span>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"  required name="address1" autocomplete="address-line1">
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"  name="address2" autocomplete="address-line2">
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="bankName"> Bank Name </label>
-                <input type="text" class="form-control" id="bankName" name="bankName" />
+                <label for="bankName"> Bank Name </label><span class="label label-info">required</span>
+                <input type="text" class="form-control" id="bankName" name="bankName" autocomplete="off"  required/>
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="accountNumber">
                     Account Number
-                </label>
-                <input class="form-control"  type="text" id="accountNumber" name="accountNumber" placeholder="Account Number" />
+                </label><span class="label label-info">required</span>
+                <input class="form-control"  type="text" id="accountNumber" name="accountNumber" autocomplete="off" placeholder="Account Number" required />
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
             <div class="form-group col-md-6">
                 <label for="routingNumber">
                     Routing Number
-                </label>
-                <input class="form-control"  type="text" id="routingNumber" name="routingNumber" placeholder="routing Number" />
+                </label><span class="label label-info">required</span>
+                <input class="form-control"  type="text" id="routingNumber" name="routingNumber" autocomplete="off" placeholder="routing Number" required />
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
         </div>
 
@@ -79,46 +113,104 @@
             <div class="form-group col-md-6">
                 <label  for="checkAmount">
                     Check Amount
-                </label>
-                <input class="form-control"  type="text" id="checkAmount" name="checkAmount" placeholder="Check Amount" />
+                </label><span class="label label-info">required</span>
+                <input class="form-control"  type="number" id="checkAmount" name="checkAmount" placeholder="Check Amount" required pattern="^[0-9]+$" />
+                <span class="glyphicon glyphicon-remove form-control-feedback"></span>
             </div>
             <div class="form-group col-md-6">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" disabled class="btn btn-primary submit">Submit</button>
             </div>
         </div>
 
 
 
-    </form>
+    </form></div>
+
+    <div class="jumbotron hidden">
+        <h1> Thank you!</h1>
+        <p>This is some text explaining what just happens and what should be done next. </p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    </div>
 
     <script type="text/javascript">
         $(document).ready(function() {
             function post(data) {
-                return fetch('#', {
+                return fetch(window.location.pathname, {
                     headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'},
                     method: 'POST',
                     credentials: 'include',
                     body: JSON.stringify(data )
                 }).then(function(res) {
                     if ( res.status < 400) {
-                        window.location.reload();
+                        $('.content-form').addClass('hidden');
+                        $('.jumbotron').removeClass('hidden');
                     } else {
                         console.error("Something wrong");
+                        alert(res.statusText);
                     }
+
                 });
             }
 
 
+            function checkForm(mark_form_group ) {
+                var has_errors = false;
+                let errors = [];
+
+                $('input[required], select').each( (index, elem) => {
+
+                    let regexp = new RegExp($(elem).attr('pattern') || '.*');
+                    let fg = $(elem).parents('.form-group:first');
+                    if ( !$(elem).val() || ! regexp.test($(elem).val() ) ) {
+                        has_errors = true;
+                        fg.removeClass('has-success');
+                        if (elem.dirty) fg.addClass('has-error');
+                        errors.push($(elem).attr('name') + " is invalid ");
+                    } else {
+                        fg.addClass('has-success').removeClass('has-error');
+                    }
+                });
+                if ( has_errors ) {
+                    console.log(errors);
+                }
+                return !has_errors;
+            }
+            var checkTimeout = null;
+            let enableSubmitButtonOnChange = () => {
+                clearTimeout(checkTimeout);
+                checkTimeout = setTimeout(function() {
+                if ( checkForm(true) ) {
+                    $('.btn.submit').prop('disabled', false);
+                } else {
+                    $('.btn.submit').prop('disabled', true);
+                }
+                }, 40);
+            };
+
+            $('input').on('keyup', enableSubmitButtonOnChange);
+            $('select').on('change', enableSubmitButtonOnChange);
+            $('input, select').on('focus', function() { this.dirty = true; } );
+
+
             $('form').on('submit', function(e) {
+                e.preventDefault();
+
+                if ( ! checkForm(true) ) {
+                     console.error("Form Invalid:");
+                    return false;
+                }
 
                 var formdata = {};
-                $('input').each( function() {
-                    formdata[ $(this).attr('name')] = $(this).val();
+                $('input, select').each( function(index,elem) {
+                    formdata[ $(elem).attr('name')] = $(elem).val();
                 });
-                formdata.state = $('select').val();
+                console.log("About to submit: ", formdata);
 
-                post(formdata);
-                e.preventDefault();
+                post(formdata).then( () => {
+
+                }).catch(err => {
+                    alert(err);
+                });
                 return false;
             });
 

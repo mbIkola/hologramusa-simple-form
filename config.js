@@ -9,6 +9,9 @@ config = {
     SMTP_FROM : process.env.SMTP_FROM || "noreply@hologramusa.com",
 
     BASE_URL  : process.env.BASE_URL || "",
+
+    GREENMONEY_CLIENT_ID : process.env.GREENMONEY_CLIENT_ID || "demo",
+    GREENMONEY_API_PASSWORD : process.env.GREENMONEY_API_PASSWORD || "demodemo"
 };
 
 
