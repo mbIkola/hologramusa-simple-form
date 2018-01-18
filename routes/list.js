@@ -52,9 +52,8 @@ function createRoutes( app ) {
         var query = getFilteredByAuthClaimsQuery(req);
         query._id = { $in : toClose }  ;
 
-        app.Investments.update(query, {
-            is_archived: true
-        }).exec().then(function(results) {
+	app.Investments.updateMany( query, {$set: {is_archived: true}}, {upsert: false})
+	.exec().then(function(results) {
             console.log("Closed claims:" + toClose.join() + " by " + req.currentUser.email);
             console.log(results);
             res.send(202);
