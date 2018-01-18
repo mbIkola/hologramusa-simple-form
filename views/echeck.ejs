@@ -1,0 +1,130 @@
+<% layout('layouts/frontoffice') %>
+
+
+<div class="container-fluid">
+    <h1>  ECheck </h1>
+
+
+    <form action="/echeck">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Full Name</label>
+                <input type="text" class="form-control" id="inputPassword4" placeholder="name" name="name">
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+            </div>
+        </div>
+
+
+        <div class="form-row ">
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Address 1</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address1">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="address2">
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity" name="city">
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="inputState">State</label>
+                <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <% Object.keys(usps).forEach( function(state)  {  %>
+                        <option value="<%=state%>"><%=usps[state]%></option>
+                    <% }); %>
+
+
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip" placeholder="99999-9999" name="zip">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="bankName"> Bank Name </label>
+                <input type="text" class="form-control" id="bankName" name="bankName" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="accountNumber">
+                    Account Number
+                </label>
+                <input class="form-control"  type="text" id="accountNumber" name="accountNumber" placeholder="Account Number" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="routingNumber">
+                    Routing Number
+                </label>
+                <input class="form-control"  type="text" id="routingNumber" name="routingNumber" placeholder="routing Number" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label  for="checkAmount">
+                    Check Amount
+                </label>
+                <input class="form-control"  type="text" id="checkAmount" name="checkAmount" placeholder="Check Amount" />
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+
+
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function post(data) {
+                return fetch('#', {
+                    headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'},
+                    method: 'POST',
+                    credentials: 'include',
+                    body: JSON.stringify(data )
+                }).then(function(res) {
+                    if ( res.status < 400) {
+                        window.location.reload();
+                    } else {
+                        console.error("Something wrong");
+                    }
+                });
+            }
+
+
+            $('form').on('submit', function(e) {
+
+                var formdata = {};
+                $('input').each( function() {
+                    formdata[ $(this).attr('name')] = $(this).val();
+                });
+                formdata.state = $('select').val();
+
+                post(formdata);
+                e.preventDefault();
+                return false;
+            });
+
+
+
+        });
+
+    </script>
+</div>
