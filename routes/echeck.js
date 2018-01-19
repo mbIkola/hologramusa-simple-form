@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const config = require('../config');
-var Greenmoney = require('greenmoney').default;
-var greenmoney = new Greenmoney(config.GREENMONEY_CLIENT_ID, config.GREENMONEY_API_PASSWORD);
+var Greenmoney = require('greenmoney');
+var greenmoney = new Greenmoney(config.GREENMONEY_CLIENT_ID, config.GREENMONEY_API_PASSWORD, true);
 
 
 
