@@ -231,6 +231,8 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            let button = $('.btn.btn-primary.submit');
+
             function post(data) {
                 return fetch(window.location.pathname, {
                     headers: {'Accept': 'application/json', 'Content-Type' : 'application/json'},
@@ -241,11 +243,22 @@
                     if ( res.status < 400) {
                         $('.content-form').addClass('hidden');
                         $('.jumbotron').removeClass('hidden');
+
                     } else {
-                        console.error("Something wrong");
-                        alert(res.statusText);
+                        if ( res.status < 500 ) {
+                            res.json().then((body) => {
+                                console.error("Something Wrong With request:", res.status, res.json());
+                                alert(body.ResultDescription + "\n" + body.VerifyResultDescription);
+                            })
+                        } else {
+                            console.error("Something wrong with server:", res.status);
+                            alert("Internal Server Error");
+                        }
                     }
 
+                }).catch(function(err) {
+                    console.error("Could not get response from server: ", err);
+                    alert("Internal Server Error, Could not get response from remote server");
                 });
             }
 
@@ -292,10 +305,12 @@
             $('form').on('submit', function(e) {
                 e.preventDefault();
 
+
                 if ( ! checkForm(true) ) {
                      console.error("Form Invalid:");
                     return false;
                 }
+                button.prop('disabled', true);
 
                 var formdata = {};
                 $('input, select').each( function(index,elem) {
@@ -303,11 +318,12 @@
                 });
                 console.log("About to submit: ", formdata);
 
-                post(formdata).then( (response) => {
-                    console.log(response);
-                }).catch(err => {
-                    alert(err);
+                post(formdata).then( () => {
+                    button.prop('disabled', false);
+                }).catch ( () => {
+                    button.prop('disabled', false);
                 });
+
                 return false;
             });
 
