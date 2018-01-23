@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "DEBUG=sales-invest-form:* node ./bin/www",
     "build": "bower install && cp -r bower_components/*/dist/* ./public/dist",
     "debug": "DEBUG=sales-invest-form:* nodemon ./bin/www"
   },
