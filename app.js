@@ -93,6 +93,7 @@ app.use(base + 'login', require('./routes/login')(app));
 app.use(base + 'edit', authMiddleware, require('./routes/investment')(app));
 
 app.use(base + 'echeck', require('./routes/echeck'));
+app.use(base + 'echeck/dist', express.static(path.join(__dirname, 'public/dist')));
 
 
 

@@ -1,0 +1,21 @@
+{
+  "name": "sales-invest-form",
+  "description": "you betta know de wey",
+  "main": "app.js",
+  "authors": [
+    "Nickolay Kharchevin <kharchevyn@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mbIkola/hologramusa-simple-form",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "smartwizard": "^4.2.2"
+  }
+}
